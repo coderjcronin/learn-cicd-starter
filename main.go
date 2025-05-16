@@ -3,13 +3,14 @@ package main
 import (
 	"database/sql"
 	"embed"
-	"github.com/go-chi/chi"
-	"github.com/go-chi/cors"
-	"github.com/joho/godotenv"
 	"io"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/go-chi/chi"
+	"github.com/go-chi/cors"
+	"github.com/joho/godotenv"
 
 	"github.com/bootdotdev/learn-cicd-starter/internal/database"
 
@@ -22,6 +23,10 @@ type apiConfig struct {
 
 //go:embed static/*
 var staticFiles embed.FS
+
+func uselessAndSpare() {
+	// TODO: Delete this
+}
 
 func main() {
 	err := godotenv.Load(".env")
