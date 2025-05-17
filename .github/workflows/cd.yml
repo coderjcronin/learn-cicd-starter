@@ -1,6 +1,8 @@
 on:
   push:
     branches: [main]
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
     deploy:
@@ -15,9 +17,15 @@ jobs:
           uses: actions/setup-go@v5
           with:
             go-version: "1.23.0"
+        
+        - name: 'Install Goose'
+          run: go install github.com/pressly/goose/v3/cmd/goose@latest
 
         - name: 'Compile Binary'
           run: ./scripts/buildprod.sh
+
+        - name: 'Migrate Database'
+          run: ./scripts/migrateup.sh
 
         - id: 'auth'
           uses: 'google-github-actions/auth@v2'
